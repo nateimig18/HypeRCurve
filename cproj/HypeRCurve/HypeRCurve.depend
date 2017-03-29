@@ -41,3 +41,28 @@
 
 1490744085 c:\users\nathan\my projects\quadcopter\rc curve theory\cproj\hypercurve\mymath.h
 
+1490811072 source:c:\git\hypercurve\cproj\hypercurve\main.c
+	<stdio.h>
+	<stdlib.h>
+	<float.h>
+	<stdint.h>
+	<math.h>
+	"koolplot.h"
+	"rcMath.h"
+	"rcCurve.h"
+	"colorMaps.h"
+	"myMath.h"
+
+1490762573 c:\git\hypercurve\cproj\hypercurve\rcmath.h
+	<stdint.h>
+	<math.h>
+
+1490756682 c:\git\hypercurve\cproj\hypercurve\rccurve.h
+	<iostream>
+	<math.h>
+	"rcMath.h"
+
+1490648332 c:\git\hypercurve\cproj\hypercurve\colormaps.h
+
+1490811185 c:\git\hypercurve\cproj\hypercurve\mymath.h
+

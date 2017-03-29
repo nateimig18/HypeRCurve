@@ -49,44 +49,43 @@ float myCoSi(float x, float *pC, float *pS);
 
 float myCoSi(float x, float *pC, float *pS){
     int     m, ms, mc;
-    float   xI, xR, xOff, xSgn, ret;
-    float   x2, c, s, cy, sy;
-
+    float   xI, xR, xR2;
+    float   c, s, cy, sy;
 
     // Cody & Waite's range reduction Algorithm, [-pi/4, pi/4]
-    xI = floorf(x*PI_4INV + 0.5);
-    xR = (x - xI*PI_4HI) - xI*PI_4LO;
+    xI  = floorf(x*PI_4INV + 0.5);
+    xR  = (x - xI*PI_4HI) - xI*PI_4LO;
+    m   = (int) xI;
+    xR2 = xR*xR;
 
-    // Find cosine & sine index for angle offsets
-    m = (int) xI;
-    m = (m < 0) ? (8 + m) : m;      // TODO: Figure out how i came up with this... It works 100%
-    mc = m & 0x7;
-    ms = (mc + 6) & 0x7;
+    // Find cosine & sine index for angle offsets indices
+    mc = (  m  ) & 0x7;
+    ms = (m + 6) & 0x7;
 
     // Find cosine & sine
     cy = cosOff4LUT[mc];     // Load pointer of matching order horner polynomial coeffcients
     sy = cosOff4LUT[ms];     // Load pointer of matching order horner polynomial coeffcients
 
-    x2 = xR*xR;
-
     /* Cosine Minimax Approximations */
     // c = cosf(xR);
     // c = 0xf.ff79fp-4 + x2 * (-0x7.e58e9p-4);   // TOL = 1.2786e-4
-    c = 0xf.ffffdp-4 + x2 * (-0x7.ffebep-4 + x2 * 0xa.956a9p-8);  // TOL = 1.7882e-7
+    c = 0xf.ffffdp-4 + xR2 * (-0x7.ffebep-4 + xR2 * 0xa.956a9p-8);  // TOL = 1.7882e-7
     // c = 0x1.p0 + x2 * (-0x7.fffff8p-4 + x2 * (0xa.aa9bap-8 + x2 * (-0x5.a7948p-12)))   // TOL =  3.06321e-10
 
     /* Sine Remez Approximation */
     // s = sinf(xR);
     // s = xR * (0xf.ffbf7p-4 + x2 * (-0x2.a41d0cp-4));    // TOL = 4.835251e-6
-    s = xR * (0xf.fffffp-4 + x2 * (-0x2.aaa65cp-4 + x2 * 0x2.1ea25p-8));  // TOL = 1.1841e-8
+    s = xR * (0xf.fffffp-4 + xR2 * (-0x2.aaa65cp-4 + xR2 * 0x2.1ea25p-8));  // TOL = 1.1841e-8
     // s = xR * (0x1.p0 + x2 * (-0x2.aaaaa8p-4 + x2 * (0x2.222048p-8 + x2 * (-0xc.f0ce4p-16))));   // TOL = 3.33542e-10
     // s = sinf(xR);
 
+    // Note: c & s are local approximations over [-pi/8, +pi/8], cy & sy are are cosine & sine
+    // offset values, thus the offset angle creates a (2x2) rotation matrix to generate over any
+    // interval.
     *pC = c*cy - s*sy;
     *pS = c*sy + s*cy;
 
-    // return(xR + m*PI_4);
-   return(m);
+    return(m);
 }
 
 #endif

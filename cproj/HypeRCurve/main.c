@@ -17,7 +17,7 @@ Plotdata x, y;
 void plotRcCurve1(float m0, float WB0, float WB1, float rmx, int Nc);
 void plotRcCurve2(float m0, float WB0, float WB1, float np, float rmx, int Nc);
 void plotPowfError(void);
-void plotCoSiError(void);
+void plotCoSiError(float xStart, float xEnd, float xInc);
 
 int main(){
     int Nc;
@@ -25,11 +25,12 @@ int main(){
 
     clear(x); clear(y);
 
-    np = 10.000;
+    np = 0.900;
 
     // plotRcCurve1(0.475, 0.15, 0.90, rmx, 30);
     plotRcCurve2(0.15, 0.05, 0.90, np, rmx, 30);
     // plotPowfError();
+    // plotCoSiError(-10*PI, 10*PI, 0x1.0p-8);
 
     return(0);
 }
@@ -131,22 +132,33 @@ void plotPowfError(void){
 
         for(v = 0.0; v <= 1.0f; v += 0x1.0p-10){
             // w = calcRcParam2(v, &rcParams);
-            // w = myPowf(v, rcParams.g) - powf(v, rcParams.g);
-            // point(x, y, v, w);
+            w = myPowf(v, rcParams.g) - powf(v, rcParams.g);
+            point(x, y, v, w);
         }
     }
 
     plot(x, y);
 }
 
-void plotCoSiError(void){
-    for(float xx = -10*PI, yR, yC, yS; xx <= 10*PI; xx += 0x1.0p-10){
+void plotCoSiError(float xStart, float xEnd, float xInc){
+    setColor(x, y, COLOR(255, 0, 0));
+    for(float xx = xStart, yR, yC, yS; xx <= xEnd; xx += xInc){
         yR = myCoSi(xx, &yC, &yS);
 
         yC -= cosf(xx);
         yS -= sinf(xx);
 
         point(x, y, xx, yS);
+    }
+
+    setColor(x, y, COLOR(0, 255, 0));
+    for(float xx = xStart, yR, yC, yS; xx <= xEnd; xx += xInc){
+        yR = myCoSi(xx, &yC, &yS);
+
+        yC -= cosf(xx);
+        yS -= sinf(xx);
+
+        point(x, y, xx, yC);
     }
 
     plot(x, y);

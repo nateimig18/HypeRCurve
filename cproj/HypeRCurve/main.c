@@ -16,7 +16,7 @@ Plotdata x, y;
 
 void plotRcCurve1(float m0, float WB0, float WB1, float rmx, int Nc);
 void plotRcCurve2(float m0, float WB0, float WB1, float np, float rmx, int Nc);
-void plotPowfError(void);
+void plotPowfError(float pStart, float pEnd, int Nc);
 void plotCoSiError(float xStart, float xEnd, float xInc);
 
 int main(){
@@ -28,8 +28,8 @@ int main(){
     np = 0.900;
 
     // plotRcCurve1(0.475, 0.15, 0.90, rmx, 30);
-    plotRcCurve2(0.15, 0.05, 0.90, np, rmx, 30);
-    // plotPowfError();
+    // plotRcCurve2(0.15, 0.05, 0.90, np, rmx, 30);
+    plotPowfError(1, 100, 40);
     // plotCoSiError(-10*PI, 10*PI, 0x1.0p-8);
 
     return(0);
@@ -111,15 +111,12 @@ void plotRcCurve2(float m0, float WB0, float WB1, float np, float rmx, int Nc){
     plot(x, y);
 }
 
-void plotPowfError(void){
-    rcParam2_t rcParams;
-    float w0, dWB, WB1, WB0;
+void plotPowfError(float pStart, float pEnd, int Nc){
+    float p, dp;
     float r, g, b;
     float v, w;
 
-    int Nc = 10;
-    WB0 = 0.05; WB1 = 0.95;
-    dWB = (WB1 - WB0) / (Nc - 1);
+    dp = (pEnd - pStart) / (Nc - 1);
 
     for(int i = 0; i < Nc; i++){
         // LumToSurreyRGB(((float) i)/ Ni, &r, &g, &b);
@@ -127,12 +124,10 @@ void plotPowfError(void){
         LumToParulaRGB(((float) i)/ Nc, &r, &g, &b);
         setColor(x, y, COLOR(255*r, 255*g, 255*b));
 
-        w0 = dWB * i + WB0;
-        initRcParam2(&rcParams, 0.01, w0, rcParams.np, 1.0);
+        p = dp * i + pStart;
 
         for(v = 0.0; v <= 1.0f; v += 0x1.0p-10){
-            // w = calcRcParam2(v, &rcParams);
-            w = myPowf(v, rcParams.g) - powf(v, rcParams.g);
+            w = myPowf(v, p) - powf(v,p);
             point(x, y, v, w);
         }
     }

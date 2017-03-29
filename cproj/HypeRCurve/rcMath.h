@@ -1,6 +1,8 @@
 #ifndef RCMATH_H
 #define RCMATH_H
 
+#include <stdlib.h>     // Needed for hex float representation...
+#include <float.h>      // Needed for hex float representation...
 #include <stdint.h>     // Needed for standart int types.
 #include <math.h>
 
@@ -67,9 +69,9 @@ float myLog2(float x){
     // L2 = -0x1.b20438p0 + v.f * (0x2.0b0654p0 + v.f * (-0x5.9021cp-4));      // Tol = +-7.784e-3
     // L2 = -0x2.2a24cp0 + v.f * (0x3.10d81cp0 + v.f * (-0x1.0f83dcp0 + v.f * 0x2.8d07fp-4));  // Tol = +-0.898e-3
 
-    L2 = -0x2.851078p0 + v.f * (0x4.1618bp0 + v.f * (-0x2.2257a4p0 + v.f * (0xa.65721p-4 + v.f * (-0x1.507b62p-4))));   // Tol = +-0.116e-3
+    // L2 = -0x2.851078p0 + v.f * (0x4.1618bp0 + v.f * (-0x2.2257a4p0 + v.f * (0xa.65721p-4 + v.f * (-0x1.507b62p-4))));   // Tol = +-0.116e-3
+    L2 = -0x2.ce7f28p0 + v.f * (0x5.1c8b68p0 + v.f * (-0x3.933bfp0 + v.f * (0x1.a54af2p0 + v.f * (-0x6.bb68d8p-4 + v.f * 0xb.9b4afp-8))));      // Tol = +-1.6e-5
 
-    // L2 = -0x2.ce7f28p0 + v.f * (0x5.1c8b68p0 + v.f * (-0x3.933bfp0 + v.f * (0x1.a54af2p0 + v.f * (-0x6.bb68d8p-4 + v.f * 0xb.9b4afp-8))));      // Tol = +-1.6e-5
     // L2 = -0x3.0b16f8p0 + v.f * (0x6.200b78p0 + v.f * (-0x5.5c449p0 + v.f * (0x3.4d0798p0 + v.f * (-0x1.45e1e2p0 + v.f * (0x4.6c513p-4 + v.f * (-0x6.9abb2p-8))))));      // Tol = +-2.17e-6
 
 	return(ret + L2);

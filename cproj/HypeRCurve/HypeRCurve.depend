@@ -1,0 +1,43 @@
+# depslib dependency file v1.0
+1490765866 source:c:\users\nathan\my projects\quadcopter\rc curve theory\cproj\hypercurve\main.c
+	<stdio.h>
+	<stdlib.h>
+	<float.h>
+	<stdint.h>
+	<math.h>
+	"koolplot.h"
+	"rcMath.h"
+	"rcCurve.h"
+	"colorMaps.h"
+	"myMath.h"
+
+1450144231 c:\users\nathan\software\codeblocks-ep\sdk\koolplot\include\koolplot.h
+	"Plotstream.h"
+
+1450144231 c:\users\nathan\software\codeblocks-ep\sdk\koolplot\include\plotstream.h
+	<graphics.h>
+	"PlotData.h"
+
+1450144232 c:\users\nathan\software\codeblocks-ep\sdk\winbgim\include\graphics.h
+	<windows.h>
+	<limits.h>
+	<sstream>
+
+1450144231 c:\users\nathan\software\codeblocks-ep\sdk\koolplot\include\plotdata.h
+	<cmath>
+	<vector>
+	<iostream>
+
+1490762573 c:\users\nathan\my projects\quadcopter\rc curve theory\cproj\hypercurve\rcmath.h
+	<stdint.h>
+	<math.h>
+
+1490756682 c:\users\nathan\my projects\quadcopter\rc curve theory\cproj\hypercurve\rccurve.h
+	<iostream>
+	<math.h>
+	"rcMath.h"
+
+1490648332 c:\users\nathan\my projects\quadcopter\rc curve theory\cproj\hypercurve\colormaps.h
+
+1490744085 c:\users\nathan\my projects\quadcopter\rc curve theory\cproj\hypercurve\mymath.h
+

@@ -13,10 +13,10 @@ True if you were left only with the functions expf() & powf() which both impleme
 
 There are four functions with varying degree implementations of minimax polynomials for myLog2(), myExp2(), myPowf(), & myExp(), as well as a super efficient algorithm for calculating cos() & sin() on the same arguement myCoSi(). It also includes a Cody & Waite range reduction algorithm that prevents mantissa truncation in the floating point modulus operator. 
 
-i.e. x = X + k*C, where C = C_HI + C_LO,  k = flr(x*C^-1 + 0.5),  
- C_HI = Higher Mantissa Bits of (mask off lower bits)
- C_LO = C - C_HI = Lower Remaining Mantissa Bits of C
- X = (x - k*C_HI) - k*C_LO
+i.e. x = X + k*C, where C = C_HI + C_LO,  k = flr(x*C^-1 + 0.5),
+C_HI = Higher Mantissa Bits of (mask off lower bits) 
+C_LO = C - C_HI = Lower Remaining Mantissa Bits of C 
+X = (x - k*C_HI) - k*C_LO 
   
 # Error of myPowf(x, p) with varying p, with all order polynomial approximations varied for both myLog2() [Y] & myExp2() [X] 
 ![powf_xlog2_yexp2](https://cloud.githubusercontent.com/assets/3208983/24440423/a8b7f61a-1419-11e7-9c11-973592d1ea6f.png)
